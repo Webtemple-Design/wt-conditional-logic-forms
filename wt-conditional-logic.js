@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const conditionalElements = Array.from(document.querySelectorAll('[data-wt-conditional-element="true"]'));
         // Iterate over each conditional element
         conditionalElements.forEach(element => {
+            console.log("Found Element");
             // Hide the element initially
             element.style.display = 'none';
             // Get all the attributes of the element and filter those that start with data-wt-conditional-if-
