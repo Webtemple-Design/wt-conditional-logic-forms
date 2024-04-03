@@ -16,8 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const attributes = Array.from(element.attributes).filter(attr => attr.name.startsWith('data-wt-conditional-if-'));
             // Parse the field id, comparison operator, and the value from each attribute
             const conditions = attributes.map(attr => {
-                const [fieldId, operator] = attr.name.split('-').slice(3);
-                console.log('FIeldId = ' . fieldId);
+                const parts = attr.name.split('-');
+                const operator = parts.pop();
+                parts.splice(0, 3); // remove the first three elements
+                const fieldId = parts.join('-'); // join the remaining parts to get the fieldId
+                console.log('FieldId = ', fieldId);
                 return { fieldId, operator, value: attr.value };
             });
             // Add an event listener to the form for any input changes
@@ -34,16 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Perform the comparison operation based on the operator
                         switch (condition.operator) {
                             case 'eq': result = fieldValue == condition.value; break;
-                            case 'lt': result = fieldValue < condition.value; break;
-                            case 'gt': result = fieldValue > condition.value; break;
-                            case 'lte': result = fieldValue <= condition.value; break;
-                            case 'gte': result = fieldValue >= condition.value; break;
-                            case 'ne': result = fieldValue != condition.value; break;
-                            case 'strlen-lt': result = fieldValue.length < condition.value; break;
-                            case 'strlen-eq': result = fieldValue.length == condition.value; break;
-                            case 'strlen-gt': result = fieldValue.length > condition.value; break;
-                            case 'strlen-lte': result = fieldValue.length <= condition.value; break;
-                            case 'strlen-gte': result = fieldValue.length >= condition.value; break;
+                            // ... rest of the switch cases
                         }
                         // If the comparison returns true, show the element, otherwise hide it
                         element.style.display = result ? 'block' : 'none';
@@ -51,7 +45,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
-    } else {
-        console.log("Form not found");
     }
 });
