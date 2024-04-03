@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Parse the field id, comparison operator, and the value from each attribute
             const conditions = attributes.map(attr => {
                 const [fieldId, operator] = attr.name.split('-').slice(3);
+                console.log('FIeldId = ' . fieldId);
                 return { fieldId, operator, value: attr.value };
             });
             // Add an event listener to the form for any input changes
