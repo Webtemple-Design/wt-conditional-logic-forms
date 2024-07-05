@@ -34,11 +34,9 @@ function setupConditionalLogic(element) {
         if (element.type === 'radio') {
             const radioGroup = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
             radioGroup.forEach(radio => {
-                if (radio !== element) {
-                    radio.addEventListener('change', function() {
-                        handleConditionalLogic(element);
-                    });
-                }
+                radio.addEventListener('change', function() {
+                    handleConditionalLogic(element);
+                });
             });
         }
     } else if (element.tagName === 'SELECT' || element.type === 'text') {
@@ -62,11 +60,6 @@ function handleConditionalLogic(element) {
         shouldShow = element.checked;
     } else if (element.type === 'radio') {
         shouldShow = element.checked;
-        // If this radio button is not checked, we need to check if any other in the group is
-        if (!shouldShow) {
-            const radioGroup = document.querySelectorAll(`input[type="radio"][name="${element.name}"]`);
-            shouldShow = Array.from(radioGroup).some(radio => radio.checked && radio !== element);
-        }
     } else if (conditionalString) {
         shouldShow = element.value.includes(conditionalString);
     }
